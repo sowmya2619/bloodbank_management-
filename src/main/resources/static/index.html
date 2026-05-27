@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blood Bank Management System</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Spring Boot + MySQL + REST APIs</p>
+        <h1>Blood Bank Management System</h1>
+        <p class="subtitle">Manage donors, hospitals, blood requests, and live inventory from one dashboard.</p>
+      </div>
+      <div class="profile-chip">
+        <span>Built by</span>
+        <strong>Balla Sowmya Sushma</strong>
+      </div>
+    </header>
+
+    <main>
+      <section class="stats-grid" aria-label="Dashboard summary">
+        <article class="stat-card">
+          <span>Total Donors</span>
+          <strong id="totalDonors">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Hospitals</span>
+          <strong id="totalHospitals">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Pending Requests</span>
+          <strong id="pendingRequests">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Available Units</span>
+          <strong id="totalAvailableUnits">0</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <div class="left-column">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Register Donor</h2>
+              <span>Eligibility tracking</span>
+            </div>
+            <form id="donorForm" class="form-grid">
+              <input name="fullName" placeholder="Full name" required>
+              <input name="age" type="number" min="18" max="65" placeholder="Age" required>
+              <select name="bloodGroup" required></select>
+              <input name="phone" placeholder="10-digit phone" pattern="[0-9]{10}" required>
+              <input name="email" type="email" placeholder="Email">
+              <input name="city" placeholder="City" required>
+              <input name="lastDonationDate" type="date" aria-label="Last donation date">
+              <label class="checkbox-row">
+                <input name="eligible" type="checkbox" checked>
+                <span>Eligible to donate</span>
+              </label>
+              <button type="submit">Add Donor</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Create Blood Request</h2>
+              <span>Hospital workflow</span>
+            </div>
+            <form id="requestForm" class="form-grid">
+              <select name="hospitalId" required></select>
+              <input name="patientName" placeholder="Patient name / case id" required>
+              <select name="bloodGroup" required></select>
+              <input name="requiredUnits" type="number" min="1" placeholder="Units" required>
+              <select name="priority" required>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM" selected>Medium</option>
+                <option value="HIGH">High</option>
+                <option value="CRITICAL">Critical</option>
+              </select>
+              <button type="submit">Submit Request</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Register Hospital</h2>
+              <span>Secure requester access</span>
+            </div>
+            <form id="hospitalForm" class="form-grid">
+              <input name="name" placeholder="Hospital name" required>
+              <input name="contactPerson" placeholder="Contact person" required>
+              <input name="phone" placeholder="10-digit phone" pattern="[0-9]{10}" required>
+              <input name="email" type="email" placeholder="Email">
+              <input name="city" placeholder="City" required>
+              <input name="address" placeholder="Address" required>
+              <button type="submit">Add Hospital</button>
+            </form>
+          </section>
+        </div>
+
+        <div class="right-column">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Blood Inventory</h2>
+              <span>Real-time stock</span>
+            </div>
+            <form id="inventoryForm" class="inventory-form">
+              <select name="bloodGroup" required></select>
+              <input name="units" type="number" min="1" placeholder="Units to add" required>
+              <button type="submit">Add Units</button>
+            </form>
+            <div id="inventoryList" class="inventory-grid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Hospital Requests</h2>
+              <span>Approve or reject</span>
+            </div>
+            <div id="requestList" class="request-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>Registered Donors</h2>
+          <span>Latest donor records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Blood</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="donorRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
