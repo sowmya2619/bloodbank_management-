@@ -100,3 +100,4 @@ This project demonstrates:
 - MySQL schema design with entity relationships
 - Real-world workflow replacement for manual blood bank operations
 - Validation, exception handling, and inventory consistency
+"# bloodbank_management-" 
